@@ -5,6 +5,7 @@
 /**
  * Fonction pour traduire le Gcode et le décomposer en petits parramétres.
  * Les parramètres reçus restent en mémoire ! (A chaques nouvelles receptions, les variables ne sont pas remise à zero)
+ * Les décimaux sont séparés par un POINT (.) 
  * @param commande : Gcode en entier de taille 190 octets
  */
 void Gcode::traductiongcode(String commande){
@@ -18,7 +19,7 @@ void Gcode::traductiongcode(String commande){
     //On parcourt le string carractère par carractère
 
 
-    if ( isDigit(commande[c]) ){
+    if ( isDigit(commande[c]) || isPunct(commande[c]) ){
       //Increment pour determiner la taille du sub string contenant les nombres
       sub_c++;
     }
@@ -43,6 +44,7 @@ void Gcode::traductiongcode(String commande){
 
   /*---------------------
   ---------Test
+  Attention l'affichage print() n'imprime que 2 décimales.
    ----------------------*/
   Serial.print("Traduction =\n");
 
