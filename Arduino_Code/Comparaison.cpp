@@ -1,5 +1,6 @@
 #include "Gcode.h"
 
+
 /**
  * Permet de mettre dans les variables m_X les valeurs correspondantes données par le Gcode.
  * On crée un substring à partir de la position du dernier chiffre.
@@ -114,8 +115,5 @@ void Gcode::Compare(String stringcomplet, String lettre, int c, int sub_c){
   {
     m_Z = stringcomplet.substring(c - sub_c, c);
   }
-  else
-  {
-    Serial.println("Error");
-  }
+
 }
