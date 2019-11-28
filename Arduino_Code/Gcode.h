@@ -11,14 +11,17 @@ class Gcode
 {
   public :
   //Fonction pour décripter le Gcode
-  void traductiongcode(String commande);
+  void traductionGcode(String commande);
   void Compare(String stringcomplet, int lettre, int c, int sub_c);
   void affiche();
 
+
+  //Assignation des différentes variables utiles lors du Gcode
   unsigned int m_G = 0;
   unsigned int m_M = 0;
   unsigned int m_N = 0;
 
+  //Les positions
   float m_X = 0.0;
   float m_Y = 0.0;
   float m_Z = 0.0;
@@ -46,6 +49,11 @@ class Gcode
   float m_V = 0.0;
   float m_W = 0.0;
 
+
+/**
+ * Permet de comparer avec un masque la présence d'une lettre récemment ajoutée.
+ * @return un booléen.
+ */
 
   inline bool hasG()
   {
@@ -154,6 +162,7 @@ class Gcode
 
 
   private :
+  //Parramètre contenant la masque du Gcode. Il sera testé par la suite.
   unsigned long param = 0;
 
 

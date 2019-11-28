@@ -8,7 +8,7 @@
  * Les décimaux sont séparés par un POINT (.)
  * @param commande : Gcode en entier de taille 190 octets
  */
-void Gcode::traductiongcode(String commande){
+void Gcode::traductionGcode(String commande){
   // Serial.print(commande);
 
   int c = 0; //Incrément de la boucle principale
@@ -55,10 +55,13 @@ void Gcode::traductiongcode(String commande){
 /**
  * Permet de mettre dans les variables m_X les valeurs correspondantes données par le Gcode.
  * On crée un substring à partir de la position du dernier chiffre.
+ * On modifie aussi la valeur de param. Cela permet ensuite de determiner les valeurs contenus dans le Gcode reçu.
+ * On utilise un système de masque (2^n), mais on ne l'affichage pas en en bits.
  * @param stringcomplet Le Gcode complet où l'on va extraire les valeurs
  * @param lettre        La lettre dont l'on veut extraire la valeur
  * @param c             Position du dernier chiffre à extraire
  * @param sub_c         Nombre de chiffres à extraires
+ * @param parram        Mise en place du masque pour detecter la présence des nouvelles variables affectées.
  */
 void Gcode::Compare(String stringcomplet, int lettre, int c, int sub_c){
 
@@ -228,8 +231,7 @@ void Gcode::Compare(String stringcomplet, int lettre, int c, int sub_c){
 
 void Gcode::affiche()
 {
-  /*---------------------
-  ---------Test
+  /*Visualisation des différentes variavles.
   Attention l'affichage print() n'imprime que 2 décimales.
   ----------------------*/
   Serial.print("Traduction =\n");
