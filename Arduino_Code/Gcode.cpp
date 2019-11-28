@@ -5,7 +5,7 @@
 /**
  * Fonction pour traduire le Gcode et le décomposer en petits parramétres.
  * Les parramètres reçus restent en mémoire ! (A chaques nouvelles receptions, les variables ne sont pas remise à zero)
- * Les décimaux sont séparés par un POINT (.) 
+ * Les décimaux sont séparés par un POINT (.)
  * @param commande : Gcode en entier de taille 190 octets
  */
 void Gcode::traductiongcode(String commande){
@@ -14,6 +14,7 @@ void Gcode::traductiongcode(String commande){
   int c = 0; //Incrément de la boucle principale
   int sub_c = 0; //Incrément pour le substring (petite tranche de la liste)
   int tString = 190; //Taille max du string
+  param=0;
 
   for (c=0; c < tString; c++){
     //On parcourt le string carractère par carractère
@@ -26,7 +27,9 @@ void Gcode::traductiongcode(String commande){
     else {
       //Ici on a la position d'un nombre, on lui associe alors la lettre correspondantes.
       //On assigne les variables (ABCD...) avec la fonction compare.
-      Compare(commande, String(commande[c-sub_c-1]), c, sub_c );
+      //Pour la propreté du code, la comparaison se fait dans un autre fichier.
+      Compare(commande, commande[c-sub_c-1], c, sub_c );
+
 
       // Serial.print(commande[c-sub_c - 1]);
       // Serial.print("\t");

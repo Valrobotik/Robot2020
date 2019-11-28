@@ -9,111 +9,167 @@
  * @param c             Position du dernier chiffre à extraire
  * @param sub_c         Nombre de chiffres à extraires
  */
-void Gcode::Compare(String stringcomplet, String lettre, int c, int sub_c){
+void Gcode::Compare(String stringcomplet, int lettre, int c, int sub_c){
 
-  if ( lettre.equals(String("A")) )
-  {
-    m_A = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("B")) )
-  {
-    m_B = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("C")) )
-  {
-    m_C = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("D")) )
-  {
-    m_D = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("E")) )
-  {
+  switch (lettre) {
+
+    case 'A':
+      m_A = stringcomplet.substring(c - sub_c, c).toFloat();
+      if (sub_c > 0)
+            param += 512;
+      break;
+
+    case 'B':
+      m_B = stringcomplet.substring(c - sub_c, c).toFloat();
+      if (sub_c > 0)
+        param += 1024;
+      break;
+
+    case 'C':
+      m_C = stringcomplet.substring(c - sub_c, c).toFloat();
+      if (sub_c > 0)
+        param += 2048;
+      break;
+
+    case 'D':
+      m_D = stringcomplet.substring(c - sub_c, c).toFloat();
+      if (sub_c > 0)
+        param += 4096;
+      break;
+
+    case 'E':
     m_E = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("F")) )
-  {
+    if (sub_c > 0)
+      param += 8192;
+    break;
+
+    case 'F':
     m_F = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("G")) )
-  {
-    m_G = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("H")) )
-  {
+    if (sub_c > 0)
+      param += 16384;
+    break;
+
+    case 'G':
+    m_G = stringcomplet.substring(c - sub_c, c).toInt();
+    if (sub_c > 0)
+      param += 1;
+    break;
+
+    case 'H':
     m_H = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("I")) )
-  {
+    if (sub_c > 0)
+      param += 32768;
+    break;
+
+    case 'I':
     m_I = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("J")) )
-  {
+    if (sub_c > 0)
+      param += 65536;
+    break;
+
+    case 'J':
     m_J = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("K")) )
-  {
+    if (sub_c > 0)
+      param += 131072;
+    break;
+
+    case 'K':
     m_K = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("L")) )
-  {
+    if (sub_c > 0)
+      param += 262144;
+    break;
+
+    case 'L':
     m_L = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("M")) )
-  {
-    m_M = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("N")) )
-  {
-    m_N = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("O")) )
-  {
+    if (sub_c > 0)
+      param += 524288;
+    break;
+
+    case 'M':
+    m_M = stringcomplet.substring(c - sub_c, c).toInt();
+    if (sub_c > 0)
+      param += 2;
+    break;
+
+    case 'N':
+    m_N = stringcomplet.substring(c - sub_c, c).toInt();
+    if (sub_c > 0)
+      param += 4;
+    break;
+
+    case 'O':
     m_O = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("P")) )
-  {
-    m_P = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("Q")) )
-  {
+    if (sub_c > 0)
+      param += 1048576;
+    break;
+
+    case 'P':
+    m_P = stringcomplet.substring(c - sub_c, c).toInt();
+    if (sub_c > 0)
+      param += 128;
+    break;
+
+    case 'Q':
     m_Q = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("R")) )
-  {
+    if (sub_c > 0)
+      param += 2097152;
+    break;
+
+    case 'R':
     m_R = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("S")) )
-  {
-    m_S = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("T")) )
-  {
-    m_T = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("U")) )
-  {
+    if (sub_c > 0)
+      param += 4194304;
+    break;
+
+    case 'S':
+    m_S = stringcomplet.substring(c - sub_c, c).toInt();
+    if (sub_c > 0)
+      param += 64;
+    break;
+
+    case 'T':
+    m_T = stringcomplet.substring(c - sub_c, c).toInt();
+    if (sub_c > 0)
+      param += 256;
+    break;
+
+    case 'U':
     m_U = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("V")) )
-  {
+    if (sub_c > 0)
+      param += 8388608;
+    break;
+
+    case 'V':
     m_V = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("W")) )
-  {
+    if (sub_c > 0)
+      param += 16777216;
+    break;
+
+    case 'W':
     m_W = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("X")) )
-  {
+    if (sub_c > 0)
+      param += 33554432;
+    break;
+
+    case 'X':
     m_X = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("Y")) )
-  {
+    if (sub_c > 0)
+      param += 8;
+    break;
+
+    case 'Y':
     m_Y = stringcomplet.substring(c - sub_c, c).toFloat();
-  }
-  else if ( lettre.equals(String("Z")) )
-  {
+    if (sub_c > 0)
+      param += 16;
+    break;
+
+    case 'Z':
     m_Z = stringcomplet.substring(c - sub_c, c).toFloat();
+    if (sub_c > 0)
+      param += 32;
+    break;
+
   }
+
 
 }
