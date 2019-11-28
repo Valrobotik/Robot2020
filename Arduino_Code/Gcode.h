@@ -13,6 +13,7 @@ class Gcode
   //Fonction pour décripter le Gcode
   void traductiongcode(String commande);
   void Compare(String stringcomplet, int lettre, int c, int sub_c);
+  void affiche();
 
   unsigned int m_G = 0;
   unsigned int m_M = 0;
