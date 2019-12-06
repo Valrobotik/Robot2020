@@ -13,6 +13,9 @@ void setup() {
   // String Text = "A1B2C3D4E5F6G20H8I9J10K11L12M13N14O15P16Q17S19T20U21V22W23X24Y25Z26";
   // String Text = "G20M0X12Y54";
   // commande.executerGcode(Text);
+
+  //Test Led
+  pinMode(3, OUTPUT);
 }
 
 void loop() {
