@@ -25,12 +25,61 @@ void Control::setup(motorParam motorLParam, motorParam motorRParam)
     reverse(true);
     m_coor.x = 0;
     m_coor.y = 0;
+    //le robot ne bouge pas: set m_dep à false!
+    m_dep = false;
 
     // 1 tour moteur.
     // m_stepperL.moveTo(3200 * 5);
     // m_stepperR.moveTo(3200 * 5)
 }
 
+void Control::move() {
+
+  Point pointRelatif;
+
+  pointRelatif.x = (m_goal.x - m_coor.x );
+  pointRelatif.y = (m_goal.y - m_coor.y);
+
+  double alpha = m_angle - (double)pointRelatif.x/(double)pointRelatif.y;
+  double distance = sqrt(pointRelatif.x*pointRelatif.x + pointRelatif.y*pointRelatif.y);
+
+  if (cycle)
+  //Activation 1 fois.
+  {
+      if (m_i==0)
+      {
+          //En premier la rotation.
+          rotate(alpha);
+          Serial.print(alpha);
+          m_i++;
+      }
+      else if(m_i==1 && m_stepperL.distanceToGo() == 0)
+      {
+          //Puis avance
+          Serial.print(m_i);
+          avance(distance);
+          m_i=0;
+          int n = m_coors.size();
+          if(n!=0) {
+            m_coor = m_goal;
+            m_goal = m_coors[0];
+            m_coors.remove(0);
+
+          }else {
+            cycle=!cycle;
+          }
+      }
+
+    }else { // en vérifiant si le robot se déplace ou non
+      int n = m_coors.size();
+      if(n!=0) {
+        m_goal = m_coors[0];
+        m_coors.remove(0);
+        cycle2 = !cycle2;
+      }
+
+    }
+}
 
 void Control::setMaxMotor()
 {
@@ -51,37 +100,24 @@ void Control::reverse(bool inverte)
 
 
 void Control::go(Point goal) {
-    Point pointRelatif;
-    pointRelatif.x = (goal.x - m_coor.x );
-    pointRelatif.y = (goal.y - m_coor.y);
+      cycle = true;
+      m_coors.push_back(goal);
+      int n = m_coors.size();
+      if(n!=0) {
+        m_goal = m_coors[0];
+        m_coors.remove(0);
 
-    float alpha = m_angle - atan(pointRelatif.x/pointRelatif.y);
-    double distance = sqrt(pointRelatif.x*pointRelatif.x + pointRelatif.y*pointRelatif.y);
+      }
 
-    if (cycle2)
-    //Activation 1 fois.
-    {
-        if (m_stepperL.distanceToGo() == 0 && cycle)
-        {
-            //En premier la rotation.
-            rotate(alpha);
-            cycle = !cycle;
-        }
-        if (m_stepperL.distanceToGo() == 0 && !cycle)
-        {
-            //Puis avance
-            avance(distance);
-            cycle = !cycle;
-            cycle2 = !cycle2;
-        }
-    }
+
 }
 
 
 void Control::rotate(float angle)
 {
-    float distStep = 62* PI *0.4*2 / 3200;
+    float distStep = DIAMETRE_ROUE* PI *REDUCTEUR*2 / NOMBRE_STEP_1TOUR;
     float steps = angle  * 223 / distStep;
+    Serial.print(steps);
     m_stepperL.move( (long) - steps);
     m_stepperR.move( (long) steps);
 }
@@ -89,7 +125,7 @@ void Control::rotate(float angle)
 
 void Control::avance(double distance)
 {
-    long nombreTour = distance*3200 /(0.4*PI*62);
+    long nombreTour = distance*NOMBRE_STEP_1TOUR /(REDUCTEUR*PI*DIAMETRE_ROUE);
     m_stepperL.move(nombreTour);
     m_stepperR.move(nombreTour);
 }
@@ -99,4 +135,5 @@ void Control::run()
 {
     m_stepperL.run();
     m_stepperR.run();
+    this->move();
 }

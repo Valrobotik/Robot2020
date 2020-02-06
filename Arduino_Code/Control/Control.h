@@ -6,10 +6,12 @@
 * Controle des moteurs pas à pas pour l'association Valrobotik INSA HDF.
 */
 
-#include <AccelStepper.h>
+#include "AccelStepper.h"
 #include <math.h>
+#include "Config.h"
+#include "Vector.h"
 
-#define PI 3.1415926535897932384626433832795
+
 
 #ifndef DEF_CONTROL
 #define DEF_CONTROL
@@ -33,16 +35,21 @@ public :
     Control();
 
     bool inverte = true;
-
+    int m_i = 0;
     //Definition des maximums des moteurs
     float maxSpeed = 5000.0;
     float maxAcceleration = 500.0;
 
 
     //Utile pour executer 1 fois la fonction go()
-    bool cycle = true;
+    bool cycle = false;
     bool cycle2 = true;
 
+    /*Buffer des différente position*/
+    Vector<Point> m_coors;
+    /*Etat de déplacement*/
+    bool m_dep;
+    Point m_goal;
 
     /*
     Maximums pour l'accélération et la vitesse des moteurs.
@@ -75,6 +82,7 @@ public :
      */
     void go(Point goal);
 
+    void move();
     /*
     Activation des moteurs.
     Cette fonction est à mettre dans void loop.
@@ -83,7 +91,7 @@ public :
 
 
     Point m_coor;
-    float m_angle;
+    double m_angle;
     motorParam m_motorLParam;
     motorParam m_motorRParam;
     AccelStepper m_stepperL;
