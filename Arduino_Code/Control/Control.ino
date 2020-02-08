@@ -25,21 +25,23 @@ void setup()
     controlMoteur.setup(motorLParam, motorRParam);
 
     //Point à atteindre.
-    but[0].x=0,but[0].y=0;
-    but[1].x=0,but[1].y=500;
-    but[2].x=500,but[2].y=500;
-    but[3].x=500,but[3].y=0;
-    a.x=500;a.y=100;
+    // but[0].x=0,but[0].y=0;
+    // but[1].x=0,but[1].y=500;
+    // but[2].x=500,but[2].y=500;
+    // but[3].x=500,but[3].y=0;
+    a.x=2000;a.y=0;
     // controlMoteur.go(but[0]);
     // controlMoteur.go(but[1]);
     // controlMoteur.go(but[2]);
     // controlMoteur.go(but[3]);
-    controlMoteur.go(a);
 }
 
 void loop()
 {
     // controlMoteur.go(but);
     //controlMoteur.go(a);
+    if (controlMoteur.m_stepperL.distanceToGo() == 0)
+        controlMoteur.go(a);
+
     controlMoteur.run();
 }

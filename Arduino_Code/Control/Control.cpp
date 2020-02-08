@@ -40,7 +40,7 @@ void Control::move() {
   pointRelatif.x = (m_goal.x - m_coor.x );
   pointRelatif.y = (m_goal.y - m_coor.y);
 
-  double alpha = m_angle - (double)pointRelatif.x/(double)pointRelatif.y;
+  double alpha = m_angle - atan()(double)pointRelatif.x/(double)pointRelatif.y);
   double distance = sqrt(pointRelatif.x*pointRelatif.x + pointRelatif.y*pointRelatif.y);
 
   if (cycle)
@@ -49,15 +49,17 @@ void Control::move() {
       if (m_i==0)
       {
           //En premier la rotation.
-          rotate(alpha);
-          Serial.print(alpha);
+          rotate(PI);
+          //Serial.println("PI");
+          //Serial.println(alpha);
           m_i++;
       }
+
       else if(m_i==1 && m_stepperL.distanceToGo() == 0)
       {
           //Puis avance
-          Serial.print(m_i);
-          avance(distance);
+          //Serial.print("distance");
+          avance(3000);
           m_i=0;
           int n = m_coors.size();
           if(n!=0) {
@@ -70,7 +72,8 @@ void Control::move() {
           }
       }
 
-    }else { // en vérifiant si le robot se déplace ou non
+    }
+    else { // en vérifiant si le robot se déplace ou non
       int n = m_coors.size();
       if(n!=0) {
         m_goal = m_coors[0];
@@ -101,10 +104,10 @@ void Control::reverse(bool inverte)
 
 void Control::go(Point goal) {
       cycle = true;
-      m_coors.push_back(goal);
+      m_coors.push_back(&goal);
       int n = m_coors.size();
       if(n!=0) {
-        m_goal = m_coors[0];
+        *m_goal = *m_coors[0];
         m_coors.remove(0);
 
       }

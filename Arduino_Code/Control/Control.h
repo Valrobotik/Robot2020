@@ -17,14 +17,14 @@
 #define DEF_CONTROL
 
 //Strucutre pour les paramètres moteurs.
-struct motorParam {
+typedef struct motorParam {
     int StepPin;
     int DirectionPin;
     int EnablePin;
 };
 
 //Structure pour les coordonnées.
-struct Point {
+typedef struct Point {
     float x;
     float y;
 };
@@ -37,16 +37,16 @@ public :
     bool inverte = true;
     int m_i = 0;
     //Definition des maximums des moteurs
-    float maxSpeed = 5000.0;
-    float maxAcceleration = 500.0;
+    float maxSpeed = 8000.0;
+    float maxAcceleration = 1000.0;
 
 
     //Utile pour executer 1 fois la fonction go()
     bool cycle = false;
     bool cycle2 = true;
-
+    //tab = (point**)malloc(sizeof(Point*)*1)
     /*Buffer des différente position*/
-    Vector<Point> m_coors;
+    Vector<*Point> m_coors;
     /*Etat de déplacement*/
     bool m_dep;
     Point m_goal;
