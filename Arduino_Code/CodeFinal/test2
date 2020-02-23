@@ -1,0 +1,67 @@
+#include "Control.h"
+#include "AccelStepper.h"
+
+motorParam motorLParam;
+motorParam motorRParam;
+
+Control controlMoteur;
+	
+	
+void setup() {
+	
+	Serial.begin(9600);
+	/*Dans un premier temps on définit les paramètres moteurs
+	et définitions des pin (en utlisant notamment la Structure MotorParam) disponible dans le fichier type.h
+	*/
+	motorLParam.StepPin = 6;
+    motorLParam.DirectionPin = 5;
+    motorLParam.EnablePin = 8;
+
+    motorRParam.StepPin = 10;
+    motorRParam.DirectionPin = 9;
+    motorRParam.EnablePin = 11;
+    controlMoteur.setup(motorLParam, motorRParam);
+    //définiton de plusieurs coordonnées (/!\ elles doivent impérativement être déclarées en static sinon ça ne marche pas)
+    static Point a;
+	static Point b;
+	static Point c;
+	static Point d;
+	static Point e;
+	static Point f;
+	static Point g;
+	static Point h;
+	Serial.print(controlMoteur.ratioAngle(-3.93));
+	/*a.x=400;a.y=400;
+	b.x=400;b.y=1000;
+	c.x =600;c.y=400;
+	d.x=800;d.y=400;
+	e.x=400;e.y=0;
+	f.x=0;f.y=1000;
+	g.x =100;g.y=600;
+	h.x=0;h.y=200;*/
+	a.x=400;a.y=600;
+	b.x=0;b.y=200;
+	c.x =0;c.y=1000;
+	d.x=800;d.y=800;
+	e.x=600;e.y=1000;
+	f.x=400;f.y=200;
+	g.x =800;g.y=400;
+	h.x=800;h.y=0;
+	//on utilise la fonction go pour ajouter nos coordonnées dans la file d'attente
+	//il mettre en partamètre de cette fonction le pointeur de la coordonnée avec le caractère &
+	controlMoteur.go(&a);
+	controlMoteur.go(&b);
+	controlMoteur.go(&c);
+	controlMoteur.go(&d);
+	controlMoteur.go(&e);
+	controlMoteur.go(&f);
+	controlMoteur.go(&g);
+	controlMoteur.go(&h);
+	
+	
+}
+void loop() {
+	//il faut toujours implémenter cette fonction dans le loop car elle permet de réintialiser les moteur à chaque passage dans la boucle
+	//si cette fonction n'est pas implémenter l'algorithme d'accelStepper ne fonctionera pas
+	controlMoteur.run();
+}
