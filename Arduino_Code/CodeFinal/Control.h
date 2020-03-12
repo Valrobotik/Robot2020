@@ -32,7 +32,7 @@ public :
 
     //Utile pour executer 1 fois la fonction go()
     bool cycle = false;
-    
+
     /*Buffer des différente position*/
     coorTab m_coors;
     /*Etat de déplacement*/
