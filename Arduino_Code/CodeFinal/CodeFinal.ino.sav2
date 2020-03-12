@@ -5,10 +5,10 @@ motorParam motorLParam;
 motorParam motorRParam;
 
 Control controlMoteur;
-	
-	
+
+
 void setup() {
-	
+
 	Serial.begin(9600);
 	/*Dans un premier temps on définit les paramètres moteurs
 	et définitions des pin (en utlisant notamment la Structure MotorParam) disponible dans le fichier type.h
@@ -39,14 +39,14 @@ void setup() {
 	f.x=0;f.y=1000;
 	g.x =100;g.y=600;
 	h.x=0;h.y=200;*/
-	a.x=400;a.y=600;
-	b.x=0;b.y=200;
-	c.x =0;c.y=1000;
-	d.x=800;d.y=800;
-	e.x=600;e.y=1000;
-	f.x=400;f.y=200;
-	g.x =800;g.y=400;
-	h.x=800;h.y=0;
+	a.x=1155;a.y=0;
+	b.x=1155;b.y=670;
+	c.x =1155;c.y=0;
+	d.x=-800;d.y=0;
+	e.x=-800;e.y=670;
+	f.x=-800;f.y=0;
+	g.x =0;g.y=0;
+	//h.x=800;h.y=0;
 	//on utilise la fonction go pour ajouter nos coordonnées dans la file d'attente
 	//il mettre en partamètre de cette fonction le pointeur de la coordonnée avec le caractère &
 	controlMoteur.go(&a);
@@ -56,9 +56,9 @@ void setup() {
 	controlMoteur.go(&e);
 	controlMoteur.go(&f);
 	controlMoteur.go(&g);
-	controlMoteur.go(&h);
-	
-	
+	//controlMoteur.go(&h);
+
+
 }
 void loop() {
 	//il faut toujours implémenter cette fonction dans le loop car elle permet de réintialiser les moteur à chaque passage dans la boucle
