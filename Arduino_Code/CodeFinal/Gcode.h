@@ -7,6 +7,17 @@
 
 
 class Gcode
+/**
+ * \brief
+ * Gcode library for ARDUINO
+ * \brief
+ * Classe qui permet de dispatcher le Gcode reçu dans différentes variables.
+ * Ainsi on connait la valeur de la variable, mais aussi si elle a été reçu lors du dernier appel.
+ * (On ne réinitialise pas les valeurs à chaques exécutions)
+ *
+ * \author S6ril
+ * \date 2019-2020
+ */
 {
   public :
 
@@ -72,9 +83,9 @@ class Gcode
 
 /**
  * Permet de comparer avec un masque la présence d'une lettre récemment ajoutée.
+ * Cette fonction est indentique pour toutes les lettres.
  * @return un booléen.
  */
-
   inline bool hasG()
   {
     return ((param & 1)!= 0);

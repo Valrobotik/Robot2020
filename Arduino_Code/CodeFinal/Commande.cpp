@@ -61,9 +61,6 @@ void Commande::executerGcode(String commande){
 
 
 
-/**
- * Espace de détermination des différentes fonctions
- */
 
 void Commande::move(Point coor){
   /*Serial.print("Move aux coordonnées : X =");
@@ -72,7 +69,7 @@ void Commande::move(Point coor){
   Serial.println(coor.y);*/
   Point coorStat = coor;
   motorControl.go(&coor);
-  
+
 }
 
 
@@ -84,16 +81,17 @@ void Commande::arret(){
 
 
 void Commande::run() {
-  
+
   static int k;
 
+  // Boucle for
   if (!k)
       k = 1;
   else
     k++;
   this->motorControl.run();
-  
-  
+
+
   int i=0;
   char commandebuffer[200];
 
@@ -107,10 +105,10 @@ void Commande::run() {
     commandebuffer[i++]='\0';
        this->executerGcode(commandebuffer);
     }
-    
+
     //Serial.print("Message =");
     //Serial.println(message);
- 
+
 }
 
 
@@ -125,4 +123,4 @@ void Commande::setup() {
   m_motorRParam.DirectionPin = R_DIRECTION_PIN;
   m_motorRParam.EnablePin = R_ENABLE_PIN;
   this->motorControl.setup(m_motorLParam, m_motorRParam);
-} 
+}
